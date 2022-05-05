@@ -6,17 +6,23 @@ import Erro from "./Containers/Erro";
 import Resultados from "./Containers/Resultados";
 
 function App() {
-  return (
-    <div>
-      <Resultados
-        result={{
-          RUA: "Rua São Paulo",
-          CIDADE: "Maringá",
-          ESTADO: "PR",
-        }}
-      />{" "}
-    </div>
-  ); /* Pesquisa é um componente, que possuí valores dentro dela */
+  let numeroTela = 3;
+
+    function handleClick(){
+     numeroTela++ 
+
+     console.log(`Numero da tela na função: ${numeroTela}`)
+    }
+
+  return <div>
+      <button onClick={handleClick}>Próxima tela</button>
+        {numeroTela == 0 ? <Pesquisa/> : null}
+        {numeroTela == 1 ? <Resultados result={{"RUA": "São Paulo"}}/> : null}
+        {numeroTela == 2 ? <Erro errorMessage="Não foi possível identificar o CEP!"/> : null}
+        {numeroTela == 3 ? <Carregando/> : null}
+
+      </div>
+      
 }
 
 export default App;
