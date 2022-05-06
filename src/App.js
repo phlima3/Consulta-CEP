@@ -3,31 +3,20 @@ import Pesquisa from "./Containers/Pesquisa";
 import Carregando from "./Containers/Carregando";
 import Erro from "./Containers/Erro";
 import Resultados from "./Containers/Resultados";
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
 
 function App() {
-  const [nomeTela, setNomeTela] = useState("PESQUISA");
-
-  function goTo(nomeTela) {
-    setNomeTela(nomeTela);
-  }
 
   return (
-    <div>
-      <div className="App">
-        <header className="App-header">
-          {nomeTela == "PESQUISA" ? <Pesquisa navegarPara={goTo} /> : null}
-          {nomeTela == "RESULTADOS" ? (
-            <Resultados result={{ RUA: "São Paulo" }} />
-          ) : null}
-          {nomeTela == "ERRO" ? (
-            <Erro navegarPara={goTo} errorMessage="Não foi possível identificar o CEP!" />
-          ) : null}
-          {nomeTela == "CARREGANDO" ? <Carregando navegarPara={goTo} /> : null}
-        </header>
-      </div>
-    </div>
-  );
+    <Router>
+    <Routes>
+      <Route path="/" element={<Pesquisa />}/>
+      <Route path="/Carregando" element={<Carregando />}/>
+      <Route path="/Resultados" element={<Resultados result={{ RUA: "São Paulo" }} />}/>
+      <Route path="/Erro" element={<Erro errorMessage="Não foi possível identificar o CEP!" />}/>
+    </Routes>
+  </Router>
+    );
 }
 
 export default App;

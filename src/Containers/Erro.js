@@ -1,11 +1,16 @@
+import { Link } from "react-router-dom";
+
 function Erro(props) {
-  const navegarPara = props.navegarPara;
   return (
-    <>
-      <p>Erro na consulta</p>
-      <p>{props.errorMessage}</p>
-      <button onClick={() => navegarPara("PESQUISA")}>VOLTAR</button>
-    </>
+    <div className="App">
+      <header className="App-header">
+        <p>Erro na consulta</p>
+        <p>{props.errorMessage}</p>
+        <Link to="/">
+          <button>VOLTAR</button>
+        </Link>
+      </header>
+    </div>
   );
 }
 
