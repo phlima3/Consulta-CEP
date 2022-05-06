@@ -1,13 +1,11 @@
 function Pesquisa() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <p>Qual CEP você deseja pesquisar?</p>
-          <input />
-          <button>CONSULTAR</button>
-        </header>
-      </div>
-    )
-  }
+  return (
+    <>
+      <p>Qual CEP você deseja pesquisar?</p>
+      <input />
+      <button>CONSULTAR</button>
+    </>
+  );
+}
 
-  export default Pesquisa;
+export default Pesquisa;

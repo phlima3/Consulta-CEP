@@ -9,16 +9,12 @@ function Resultados(props) {
     </span>
   ));
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Resultados para o CEP 16075-420</p>
-        {elements}
-        <button>NOVA CONSULTA</button>
-      </header>
-    </div>
+    <>
+      <p>Resultados para o CEP 16075-420</p>
+      {elements}
+      <button>NOVA CONSULTA</button>
+    </>
   );
 }
 
-/*  <span><b>RUA:</b>Rua São Paulo </span>
-          <span><b>CIDADE:</b>Maringá </span> */
 export default Resultados;

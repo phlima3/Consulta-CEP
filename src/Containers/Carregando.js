@@ -1,12 +1,10 @@
 function Carregando() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <p>Carregando resultados...</p>
-          <button>CANCELAR</button>
-        </header>
-      </div>
-    )
-  }
+  return (
+    <>
+      <p>Carregando resultados...</p>
+      <button>CANCELAR</button>
+    </>
+  );
+}
 
-  export default Carregando;
+export default Carregando;
