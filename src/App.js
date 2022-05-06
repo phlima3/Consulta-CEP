@@ -6,23 +6,26 @@ import Resultados from "./Containers/Resultados";
 import { useState } from "react";
 
 function App() {
-  const [numeroTela, setNumeroTela] = useState(0);
+  const [nomeTela, setNomeTela] = useState("PESQUISA");
 
-  function handleClick() {
-    setNumeroTela((numeroTela + 1) % 4);
+  function goTo(nomeTela) {
+    setNomeTela(nomeTela);
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-      <button onClick={handleClick}>Próxima tela</button>
-      {numeroTela === 0 ? <Pesquisa /> : null}
-      {numeroTela === 1 ? <Resultados result={{ RUA: "São Paulo" }} /> : null}
-      {numeroTela === 2 ? (
-        <Erro errorMessage="Não foi possível identificar o CEP!" />
-      ) : null}
-      {numeroTela === 3 ? <Carregando /> : null}
-      </header>
+    <div>
+      <div className="App">
+        <header className="App-header">
+          {nomeTela == "PESQUISA" ? <Pesquisa navegarPara={goTo} /> : null}
+          {nomeTela == "RESULTADOS" ? (
+            <Resultados result={{ RUA: "São Paulo" }} />
+          ) : null}
+          {nomeTela == "ERRO" ? (
+            <Erro navegarPara={goTo} errorMessage="Não foi possível identificar o CEP!" />
+          ) : null}
+          {nomeTela == "CARREGANDO" ? <Carregando navegarPara={goTo} /> : null}
+        </header>
+      </div>
     </div>
   );
 }
