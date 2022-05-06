@@ -3,6 +3,7 @@ import Pesquisa from "./Containers/Pesquisa";
 import Carregando from "./Containers/Carregando";
 import Erro from "./Containers/Erro";
 import Resultados from "./Containers/Resultados";
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
 
 function App() {
