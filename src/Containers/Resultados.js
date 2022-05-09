@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { Link } from "react-router-dom";
 
 function Resultados(props) {
@@ -14,7 +14,7 @@ function Resultados(props) {
   return (
     <div className="App">
       <header className="App-header">
-        <p>Resultados para o CEP 16075-420</p>
+        <p>Resultados para o CEP {result.cep}</p>
         {elements}
         <Link to="/">
           <button style={{ margin: 20 }}>NOVA CONSULTA</button>

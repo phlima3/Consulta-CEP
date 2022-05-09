@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import consultarCep from "cep-promise";
@@ -8,7 +8,7 @@ function numbersOnly(str) {
 }
 
 function Pesquisa(props) {
-  const setResultado = props.setResultado;
+  const setResult = props.setResult;
   const [cepNumber, setCepNumber] = useState("");
   function handleChange(event) {
     const value = event.target.value;
@@ -18,13 +18,18 @@ function Pesquisa(props) {
     setCepNumber("");
   }
   function handleSuccsess(dadosCEP) {
-      setResultado(dadosCEP)
-
+    const result = {
+      ESTADO: dadosCEP.state,
+      CIDADE: dadosCEP.city,
+      BAIRRO: dadosCEP.neighborhood,
+      LOGRADOURO: dadosCEP.street,
+    };
+    setResult(result);
   }
   function handleError(err) {}
 
   function handleSearch() {
-    consultarCep(cepNumber).than(handleSuccsess).catch(handleError);
+    consultarCep(cepNumber).then(handleSuccsess).catch(handleError);
   }
 
   return (
