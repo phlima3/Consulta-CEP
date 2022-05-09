@@ -9,18 +9,17 @@ import Resultados from "./Containers/Resultados";
 
 function App() {
   const [result, setResult] = useState({});
-  const [errorMessage, setErrorMessage] = useState("");
-
+  const [errorMessage] = useState("");
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Pesquisa setResult={setResult} />} />
-        <Route path="/Carregando" element={<Carregando />} />
         <Route path="/Resultados" element={<Resultados result={result} />} />
         <Route
-          path="/Erro"
-          element={<Erro errorMessage="Não foi possível identificar o CEP!" />}
+          path="/Erro/:message"
+          element={<Erro errorMessage={errorMessage} />}
         />
+        <Route path="/Carregando" element={<Carregando />} />
       </Routes>
     </Router>
   );

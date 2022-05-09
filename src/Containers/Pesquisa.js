@@ -1,6 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link, useNavigate   } from "react-router-dom";
 import consultarCep from "cep-promise";
 
 function numbersOnly(str) {
@@ -9,6 +8,7 @@ function numbersOnly(str) {
 
 function Pesquisa(props) {
   const setResult = props.setResult;
+  const navigate = useNavigate();
   const [cepNumber, setCepNumber] = useState("");
   function handleChange(event) {
     const value = event.target.value;
@@ -26,7 +26,12 @@ function Pesquisa(props) {
     };
     setResult(result);
   }
-  function handleError(err) {}
+  function handleError(err) {
+    const errorMessage = err.message;
+
+    navigate('/Erro/' + errorMessage);
+    
+  }
 
   function handleSearch() {
     consultarCep(cepNumber).then(handleSuccsess).catch(handleError);
