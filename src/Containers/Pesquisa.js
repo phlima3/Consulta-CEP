@@ -47,6 +47,10 @@ function Pesquisa(props) {
     const maskedValue = mask(originalValue, ["99999-999"]);
     setCepNumber(numbersOnly(value));
     setValue(maskedValue);
+      if(value.length == 9){
+        handleSearch(cepDados);
+      }
+     
   }
   function handleSuccsess(cepDados) {
     const result = translate(cepDados);
