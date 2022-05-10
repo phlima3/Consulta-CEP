@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate   } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import consultarCep from "cep-promise";
 
 function numbersOnly(str) {
@@ -9,6 +9,8 @@ function numbersOnly(str) {
 function Pesquisa(props) {
   const setResult = props.setResult;
   const navigate = useNavigate();
+  const navLoading = useNavigate();
+  const ticket = props.ticket;
   const [cepNumber, setCepNumber] = useState("");
   function handleChange(event) {
     const value = event.target.value;
@@ -25,16 +27,23 @@ function Pesquisa(props) {
       LOGRADOURO: dadosCEP.street,
     };
     setResult(result);
+    navigate("/Resultados");
   }
   function handleError(err) {
     const errorMessage = err.message;
 
-    navigate('/Erro/' + errorMessage);
-    
+    navigate("/Erro/" + errorMessage);
   }
 
-  function handleSearch() {
-    consultarCep(cepNumber).then(handleSuccsess).catch(handleError);
+  function handleSearch(props) {
+    ticket.current++;
+    const currentTicket = ticket.current;
+    navLoading("/Carregando/");
+    consultarCep(cepNumber)
+      .then(
+        (result) => currentTicket == ticket.current && handleSuccsess(result)
+      )
+      .catch((err) => currentTicket == ticket.current && handleError(err));
   }
 
   return (
@@ -49,9 +58,7 @@ function Pesquisa(props) {
         />
         <button onClick={limparState}>LIMPAR STATE</button>
 
-        <Link to="/Resultados">
-          <button onClick={handleSearch}>CONSULTAR</button>
-        </Link>
+        <button onClick={handleSearch}>CONSULTAR</button>
       </header>
     </div>
   );
