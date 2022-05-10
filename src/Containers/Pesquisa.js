@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import consultarCep from "cep-promise";
 import CEPDados from "../Components/CEPDados";
+import { mask, unMask } from "remask";
 
 function numbersOnly(str) {
   return str.replace(/[^\d]/g, "");
@@ -24,6 +25,7 @@ function Pesquisa(props) {
   const [cepNumber, setCepNumber] = useState("");
   const [favoriteCEP, setFavoriteCEP] = useState("");
   const [cepDados, setCepDados] = useState({});
+  const [value, setValue] = useState("");
 
   useEffect(() => {
     const storedCep = localStorage.getItem("favoriteCEP") || "";
@@ -41,7 +43,10 @@ function Pesquisa(props) {
 
   function handleChange(event) {
     const value = event.target.value;
+    const originalValue = unMask(event.target.value);
+    const maskedValue = mask(originalValue, ["99999-999"]);
     setCepNumber(numbersOnly(value));
+    setValue(maskedValue);
   }
   function handleSuccsess(cepDados) {
     const result = translate(cepDados);
@@ -73,14 +78,16 @@ function Pesquisa(props) {
       <header className="App-header">
         <p>Qual CEP você deseja pesquisar?</p>
         <input
-          value={numbersOnly(cepNumber)}
+          value={value}
           onChange={handleChange}
           style={{ margin: 20 }}
+          placeholder="Digite seu CEP"
+          maxLength={9}
         />
         <button onClick={handleSearch}>CONSULTAR</button>
         <button onClick={handleAddFavorite}>SALVAR FAVORITO</button>
         <br />
-        <p>FAVORITO: {favoriteCEP}</p>
+        <p>FAVORITO: {mask(favoriteCEP, ["99999-999"])}</p>
         <CEPDados cepDados={translate(cepDados)} />
       </header>
     </div>

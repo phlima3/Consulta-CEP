@@ -11,7 +11,11 @@ function Carregando(props) {
   return (
     <div className="App">
       <header className="App-header">
-        <p>Carregando resultados...</p>
+        <div class="loadingio-spinner-rolling-n64nzqszvaa">
+          <div class="ldio-n63odfdng2">
+            <div></div>
+          </div>
+        </div>
         <Link to="/">
           <button onClick={handleCancel}>CANCELAR</button>
         </Link>
