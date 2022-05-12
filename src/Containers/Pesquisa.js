@@ -85,7 +85,6 @@ function Pesquisa(props) {
           placeholder="Digite seu CEP"
           maxLength={9}
         />
-        <button onClick={handleSearch}>CONSULTAR</button>
         <button onClick={handleAddFavorite}>SALVAR FAVORITO</button>
         <br />
         <p>FAVORITO: {mask(favoriteCEP, ["99999-999"])}</p>
