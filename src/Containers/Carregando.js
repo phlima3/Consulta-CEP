@@ -11,8 +11,8 @@ function Carregando(props) {
   return (
     <div className="App">
       <header className="App-header">
-        <div class="loadingio-spinner-rolling-n64nzqszvaa">
-          <div class="ldio-n63odfdng2">
+        <div className="loadingio-spinner-rolling-n64nzqszvaa">
+          <div className="ldio-n63odfdng2">
             <div></div>
           </div>
         </div>

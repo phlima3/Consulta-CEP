@@ -4,10 +4,6 @@ import consultarCep from "cep-promise";
 import CEPDados from "../Components/CEPDados";
 import { mask, unMask } from "remask";
 
-function numbersOnly(str) {
-  return str.replace(/[^\d]/g, "");
-}
-
 function translate(cepDados) {
   return {
     ESTADO: cepDados.state,
@@ -22,7 +18,6 @@ function Pesquisa(props) {
   const navigate = useNavigate();
   const navLoading = useNavigate();
   const ticket = props.ticket;
-  const [cepNumber, setCepNumber] = useState("");
   const [favoriteCEP, setFavoriteCEP] = useState("");
   const [cepDados, setCepDados] = useState({});
   const [value, setValue] = useState("");
@@ -41,17 +36,6 @@ function Pesquisa(props) {
       .catch((err) => setCepDados({ ERRO: err.message }));
   }, [favoriteCEP]);
 
-  function handleChange(event) {
-    const value = event.target.value;
-    const originalValue = unMask(event.target.value);
-    const maskedValue = mask(originalValue, ["99999-999"]);
-    setCepNumber(numbersOnly(value));
-    setValue(maskedValue);
-      if(value.length == 9){
-        handleSearch(cepDados);
-      }
-     
-  }
   function handleSuccsess(cepDados) {
     const result = translate(cepDados);
     setResult(result);
@@ -63,18 +47,31 @@ function Pesquisa(props) {
     navigate("/Erro/" + errorMessage);
   }
 
-  function handleSearch(props) {
+  function handleSearch(value) {
+    const pesquisar = value;
+    console.log(pesquisar);
     ticket.current++;
     const currentTicket = ticket.current;
     navLoading("/Carregando/");
-    consultarCep(cepNumber)
+    console.log(`value dentro do handleSearch ${pesquisar}`);
+    consultarCep(pesquisar)
       .then(
         (result) => currentTicket == ticket.current && handleSuccsess(result)
       )
       .catch((err) => currentTicket == ticket.current && handleError(err));
   }
+  function handleChange(event) {
+    const value = event.target.value;
+    const originalValue = unMask(value);
+    const maskedValue = mask(originalValue, ["99999-999"]);
+    setValue(maskedValue);
+    if (value.length == 9) {
+      handleSearch(value);
+      console.log(value);
+    }
+  }
   function handleAddFavorite() {
-    setFavoriteCEP(cepNumber);
+    setFavoriteCEP(value);
   }
 
   return (
